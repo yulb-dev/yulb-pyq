@@ -1,0 +1,41 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index"
+    },
+    {
+      "path": "pages/two/index"
+    },
+    {
+      "path": "pages/three/index"
+    },
+    {
+      "path": "pages/four/index"
+    }
+  ],
+  "globalStyle": {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#e34969",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "iconWidth": "50px",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/images/icons/home.png",
+        "selectedIconPath": "static/images/icons/home_active.png",
+        "text": ""
+      },
+      {
+        "pagePath": "pages/two/index",
+        "iconPath": "static/images/icons/home.png",
+        "selectedIconPath": "static/images/icons/home2.png",
+        "text": ""
+      }
+    ]
+  }
+}

@@ -20,20 +20,32 @@
   "tabBar": {
     "color": "#999999",
     "selectedColor": "#e34969",
-    "borderStyle": "black",
+    "borderStyle": "white",
     "backgroundColor": "#fff",
     "iconWidth": "50px",
     "list": [
       {
         "pagePath": "pages/index/index",
         "iconPath": "static/images/icons/home.png",
-        "selectedIconPath": "static/images/icons/home_active.png",
+        "selectedIconPath": "static/images/icons/home2.png",
         "text": ""
       },
       {
         "pagePath": "pages/two/index",
-        "iconPath": "static/images/icons/home.png",
-        "selectedIconPath": "static/images/icons/home2.png",
+        "iconPath": "static/images/icons/look.png",
+        "selectedIconPath": "static/images/icons/look.png",
+        "text": ""
+      },
+      {
+        "pagePath": "pages/three/index",
+        "iconPath": "static/images/icons/send.png",
+        "selectedIconPath": "static/images/icons/send_active.png",
+        "text": ""
+      },
+      {
+        "pagePath": "pages/four/index",
+        "iconPath": "static/images/icons/myself.png",
+        "selectedIconPath": "static/images/icons/myself_active.png",
         "text": ""
       }
     ]

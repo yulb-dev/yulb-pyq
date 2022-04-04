@@ -1,0 +1,46 @@
+.GoodsCardLIst {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #f9f9ff;
+  position: relative;
+  padding: 16px 15px 18px 15px;
+  .GoodsCardBOx {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.4s;
+    //定义动画
+    @keyframes turn {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+      25% {
+        -webkit-transform: rotate(90deg);
+      }
+      50% {
+        -webkit-transform: rotate(180deg);
+      }
+      75% {
+        -webkit-transform: rotate(270deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    .refreshBox {
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #152035;
+      font-size: 16px;
+      .img {
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}

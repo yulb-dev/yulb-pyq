@@ -1,5 +1,8 @@
 <template>
-    <view class="topLogo" :style="{ top: statusBarHeight + 'px' }">
+    <view
+        class="topLogo"
+        :style="{ height: 56 + $statusBarHeight + 'px', paddingTop: $statusBarHeight + 'px' }"
+    >
         <text class="text">
             <text class="one">P</text>icture
             <text class="one">B</text>looms

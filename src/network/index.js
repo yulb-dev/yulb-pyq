@@ -3,11 +3,13 @@ function createRequest(options) {
         get(target, key) {
             return function (data) {
                 let url = data?.url ?? ''
-                url = options.url
+                url = options.url + url
                 return uni.request({ ...options, ...data, url, method: key.toUpperCase() });
             }
         },
         apply(target, thisArg, argArray) {
+            let url = argArray[0]?.url ?? ''
+            url = options.url + url
             return uni.request({ ...options, ...argArray[0] });
         }
     }
@@ -15,5 +17,6 @@ function createRequest(options) {
 }
 
 const discoverPage = createRequest({ url: '/discoverPage' })
+const Login = createRequest({ url: '/login' })
 
-export { discoverPage }
+export { discoverPage, Login }

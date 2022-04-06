@@ -1,13 +1,18 @@
 <template>
-  <view class="content">
-     <view class="content">
-    <text>four</text>
-  </view>
+  <view class="myself" :style="{ paddingTop: $statusBarHeight + 56 + 'px' }">
+    <top-logo></top-logo>
+    <not-login></not-login>
   </view>
 </template>
 
-<script>
+<script setup>
+import TopLogo from '@/components/TopLogo/TopLogo'
+import NotLogin from '@/components/NotLogin/NotLogin'
 </script>
 
 <style>
+.myself {
+  height: 100%;
+  background-color: #f9f9ff;
+}
 </style>

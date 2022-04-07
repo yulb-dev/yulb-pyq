@@ -10,7 +10,7 @@ function createRequest(options) {
         apply(target, thisArg, argArray) {
             let url = argArray[0]?.url ?? ''
             url = options.url + url
-            return uni.request({ ...options, ...argArray[0] });
+            return uni.request({ ...options, ...argArray[0], url });
         }
     }
     return new Proxy(() => { }, headler)
@@ -18,5 +18,6 @@ function createRequest(options) {
 
 const discoverPage = createRequest({ url: '/discoverPage' })
 const Login = createRequest({ url: '/login' })
+const mySelf = createRequest({ url: '/mySelf' })
 
-export { discoverPage, Login }
+export { discoverPage, Login, mySelf }

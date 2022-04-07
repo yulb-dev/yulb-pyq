@@ -11,6 +11,15 @@
     },
     {
       "path": "pages/four/index"
+    },
+    {
+      "path": "pages/four/SettingUser",
+      "style": {
+        "navigationBarBackgroundColor": "#f9f9ff",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "个人资料",
+        "navigationStyle": "default"
+      }
     }
   ],
   "globalStyle": {
@@ -33,7 +42,7 @@
       {
         "pagePath": "pages/two/index",
         "iconPath": "static/images/icons/look.png",
-        "selectedIconPath": "static/images/icons/look.png",
+        "selectedIconPath": "static/images/icons/look_active.png",
         "text": ""
       },
       {

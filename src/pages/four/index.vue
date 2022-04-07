@@ -1,18 +1,26 @@
 <template>
   <view class="myself" :style="{ paddingTop: $statusBarHeight + 56 + 'px' }">
     <top-logo></top-logo>
-    <not-login></not-login>
+    <user-login v-if="store.userIsLogin"></user-login>
+    <not-login v-else></not-login>
+    <view class="bottom_shadow"></view>
   </view>
 </template>
 
 <script setup>
 import TopLogo from '@/components/TopLogo/TopLogo'
+import UserLogin from '@/components/UserLogin/UserLogin'
 import NotLogin from '@/components/NotLogin/NotLogin'
+import { useStore } from '@/stores/counter'
+
+const store = useStore()
+
 </script>
 
 <style>
 .myself {
   height: 100%;
+  overflow: hidden;
   background-color: #f9f9ff;
 }
 </style>

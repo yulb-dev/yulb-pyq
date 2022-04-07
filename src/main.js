@@ -1,9 +1,11 @@
 import {
 	createSSRApp
 } from "vue";
+import { createPinia } from 'pinia'
 import App from "./App.vue";
 export function createApp() {
 	const app = createSSRApp(App);
+	app.use(createPinia())
 	uni.getSystemInfo({
 		success({ screenHeight, windowHeight, statusBarHeight }) {
 			app.provide('windowHeight', windowHeight)

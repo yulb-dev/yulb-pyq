@@ -1,27 +1,51 @@
-<script>
-export default {
-  onLaunch: function () {
-    //路由拦截
-    uni.addInterceptor('request', {
-      invoke(args) {
-        // request 触发前拼接 url 
-        args.url = 'https://demo-1784128-1310711794.ap-shanghai.run.tcloudbase.com' + args.url
-      },
-      success(args) {
-      },
-      fail(err) {
-        console.log('interceptor-fail', err)
-      },
+<script setup>
+import { onLaunch } from '@dcloudio/uni-app'
+import { useStore } from '@/stores/counter'
+import { Login } from '@/network/index'
+
+uni.addInterceptor('request', {
+  invoke(args) {
+    // request 触发前拼接 url 
+    args.url = 'https://demo-1784128-1310711794.ap-shanghai.run.tcloudbase.com' + args.url
+  },
+  success(args) {
+  },
+  fail(err) {
+    console.log('interceptor-fail', err)
+  },
+})
+
+//初始化云托管接口
+wx.cloud.init()
+
+const store = useStore()
+uni.getStorage({
+  key: 'user_token',
+  success(res) {
+    Login({ url: '/init', data: { openid: res.data } }).then(({ data }) => {
+      store.InitUser(data)
     })
+  },
+  fail() {
+    return
+  }
+});
 
-    wx.cloud.init()
+//应用生命周期
+// onLaunch(() => {
+//   //路由拦截
 
-  },
-  onShow: function () {
-  },
-  onHide: function () {
-  },
-}
+// })
+// export default {
+//   onLaunch: function () {
+
+
+//   },
+//   onShow: function () {
+//   },
+//   onHide: function () {
+//   },
+// }
 </script>
 
 <style lang="scss">
@@ -38,7 +62,9 @@ text,
 scroll-view,
 input,
 button,
-scroll-view {
+scroll-view,
+radio-group,
+textarea {
   box-sizing: border-box;
 }
 .labelsList_item {
@@ -77,5 +103,13 @@ scroll-view {
   .refresh:active {
     color: #f67280;
   }
+}
+.bottom_shadow {
+  width: 100%;
+  height: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  background-color: white;
+  bottom: -10px;
 }
 </style>

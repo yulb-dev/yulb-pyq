@@ -56,12 +56,5 @@ function DynamicRefresh() {
 .scroll-Y {
   height: 100%;
 }
-.bottom_shadow {
-  width: 100%;
-  height: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  background-color: white;
-  bottom: -10px;
-}
+
 </style>

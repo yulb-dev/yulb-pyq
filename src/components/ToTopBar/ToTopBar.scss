@@ -1,0 +1,20 @@
+.toTop {
+  width: 45px;
+  height: 45px;
+  background-color: #f67280;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  border-radius: 50%;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  .svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+  }
+}

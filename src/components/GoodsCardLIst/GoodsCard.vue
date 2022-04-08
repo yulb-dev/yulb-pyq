@@ -67,7 +67,9 @@ getUserMessage(props.message.userid).then(({ data }) => {
 })
 
 function goDetails() {
-    console.log('ok');
+    uni.navigateTo({
+        url: 'detailsPage?cardid=' + props.message._id
+    });
 }
 
 function goLabelsPage() {

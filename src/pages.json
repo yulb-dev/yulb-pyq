@@ -4,6 +4,9 @@
       "path": "pages/index/index"
     },
     {
+      "path": "pages/index/detailsPage"
+    },
+    {
       "path": "pages/two/index"
     },
     {

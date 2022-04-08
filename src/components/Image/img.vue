@@ -3,8 +3,9 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, watch, watchEffect } from 'vue'
 import src from '@/static/images/background/Loading.png'
+
 const state = reactive({
     src
 })
@@ -14,6 +15,9 @@ const props = defineProps({
         required: true,
     }
 })
+
+watchEffect(getImg)
+
 function getImg() {
     if (props.src)
         wx.cloud.getTempFileURL({
@@ -24,9 +28,6 @@ function getImg() {
             fail: console.error
         })
 }
-
-getImg()
-
 </script>
 
 <style lang="scss" scoped>

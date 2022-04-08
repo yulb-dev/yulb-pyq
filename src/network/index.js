@@ -19,5 +19,7 @@ function createRequest(options) {
 const discoverPage = createRequest({ url: '/discoverPage' })
 const Login = createRequest({ url: '/login' })
 const mySelf = createRequest({ url: '/mySelf' })
+const Registered = createRequest({ url: '/registered' })
+const Details = createRequest({ url: '/details' })
 
-export { discoverPage, Login, mySelf }
+export { discoverPage, Login, mySelf, Registered, Details }

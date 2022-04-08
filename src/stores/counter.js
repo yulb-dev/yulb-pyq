@@ -17,7 +17,15 @@ const useStore = defineStore('main', () => {
         userIsLogin.value = true
     }
 
-    return { userIsLogin, user, InitUser }
+    function setUser(data) {
+        Reflect.ownKeys(data).forEach((key) => user.data[key] = data[key])
+    }
+    function quit() {
+        user.data = null
+        userIsLogin.value = false
+    }
+
+    return { userIsLogin, user, InitUser, setUser, quit }
 })
 
 export { useStore }

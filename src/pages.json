@@ -23,6 +23,12 @@
         "navigationBarTitleText": "个人资料",
         "navigationStyle": "default"
       }
+    },
+    {
+      "path": "pages/LabelsPage/labelsPage"
+    },
+    {
+      "path": "pages/UserHome/UserHome"
     }
   ],
   "globalStyle": {

@@ -112,4 +112,10 @@ textarea {
   background-color: white;
   bottom: -10px;
 }
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  color: transparent;
+}
 </style>

@@ -8,7 +8,7 @@
             </view>
             <view class="cardLabels">
                 <text v-for="(item, index) in message.labels" :style="{ backgroundColor: color[index] }"
-                    @click="goLabelsPage(item)" :key="index" class="cardLabels-text">{{ item }}</text>
+                    @click.stop="goLabelsPage(item)" :key="index" class="cardLabels-text">{{ item }}</text>
                 <text style="color:rgb(83, 83, 83);" class="cardLabels-text">{{ date }}</text>
             </view>
             <text class="cardTitle">{{ message.title }}</text>
@@ -24,7 +24,7 @@
                     <image src="@/static/images/icons/share.png" class="icon"></image>
                     <text>分享</text>
                 </view>
-                <view class="right" v-if="state.message.useravatar">
+                <view class="right" v-if="state.message.useravatar" @click.stop="toPersonalSpace(message.userid)">
                     <text> 来自于</text>
                     <text class="separate"></text>
                     <p>{{ state.message.username }}</p>
@@ -37,8 +37,11 @@
 
 <script setup>
 import { reactive, computed } from 'vue'
-import NewImg from '@/components/image/img'
 import { getUserMessage } from '@/network/home'
+import { useStore } from '@/stores/counter'
+import NewImg from '@/components/image/img'
+
+const store = useStore()
 
 const props = defineProps({
     message: {
@@ -72,7 +75,21 @@ function goDetails() {
     });
 }
 
-function goLabelsPage() {
+function goLabelsPage(label) {
+    uni.navigateTo({
+        url: '../LabelsPage/labelsPage?label=' + label
+    });
+}
+
+function toPersonalSpace(userid) {
+    if (store.userIsLogin && store.user.data._id === userid)
+        uni.switchTab({
+            url: '/pages/four/index'
+        });
+    else
+        uni.navigateTo({
+            url: '../UserHome/UserHome?userid=' + userid
+        });
 
 }
 

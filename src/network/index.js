@@ -21,5 +21,6 @@ const Login = createRequest({ url: '/login' })
 const mySelf = createRequest({ url: '/mySelf' })
 const Registered = createRequest({ url: '/registered' })
 const Details = createRequest({ url: '/details' })
+const PersonalSpace = createRequest({ url: '/personalSpace' })
 
-export { discoverPage, Login, mySelf, Registered, Details }
+export { discoverPage, Login, mySelf, Registered, Details, PersonalSpace }

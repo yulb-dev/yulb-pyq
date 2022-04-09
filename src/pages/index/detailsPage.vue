@@ -11,7 +11,7 @@
                             <new-img :src="state.imgsrc" class="img"></new-img>
                         </view>
                         <view class="title">
-                            <text v-for="(item, i) in state.labels" :key="i" class="labels" @click="goLabelsPage">
+                            <text v-for="(item, i) in state.labels" :key="i" class="labels" @click="goLabelsPage(item)">
                                 {{
                                     item
                                 }}
@@ -57,14 +57,22 @@
                 </view>
             </view>
         </scroll-view>
+        <view :class="['post_comment', { post_comment_change: isChange }]">
+            <textarea :class="['textarea', { textarea_change: isChange }]" placeholder-class="placeholder-class"
+                placeholder="发一条友善的评论" auto-height :show-confirm-bar="false" cursor-spacing="20" hold-keyboard
+                @linechange="linechange" />
+            <text class="release">发布</text>
+        </view>
     </view>
 </template>
 
 <script setup>
-import { reactive, computed, ref, nextTick } from 'vue'
+import { reactive, computed, ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { useStore } from '@/stores/counter'
 import { Details } from '@/network/index'
+import { getUserProfile } from "@/BusinessLogic/getUserProfile"
+import { useScroll } from '@/BusinessLogic/Composable'
 import BackBar from '@/components/BackBar/BackBar'
 import ToTopBar from '@/components/ToTopBar/ToTopBar'
 import NewImg from '@/components/image/img'
@@ -72,10 +80,10 @@ import CommentItem from '@/components/CommentItem/CommentItem'
 import not_collet from '@/static/images/icons/not_collet.png'
 import collet from '@/static/images/icons/not_collet.png'
 
+const { toTopBarIsShow, scrollTop, toTop, scroll } = useScroll()
+
 const state = reactive({})
-const toTopBarIsShow = ref(false)
-const scrollTop = ref(0)
-const oldScrollTop = ref(0)
+const isChange = ref(false)
 const store = useStore()
 const isMyself = computed(() => {
     return store.userIsLogin && store.user.data._id === state.userid?._id
@@ -87,7 +95,6 @@ const isFavorite = computed(() => {
     return store.userIsLogin && store.user.data.favorites.indexOf(state._id) > -1
 })
 
-let timer = null
 
 onLoad(async (option) => {
     const res = await Details({ url: '/getMessage', data: { id: option.cardid } })
@@ -102,29 +109,24 @@ onLoad(async (option) => {
     Reflect.ownKeys(card).forEach((key) => state[key] = card[key])
     state.comments = comments
 })
-
-function toTop() {
-    scrollTop.value = oldScrollTop.value
-    nextTick(() => {
-        scrollTop.value = 0
+function goLabelsPage(label) {
+    uni.navigateTo({
+        url: '../LabelsPage/labelsPage?label=' + label
     });
 }
 
-function goLabelsPage() {
-
+async function toIdol() {
+    const id = state.userid._id
+    if (store.userIsLogin) {
+        store.becomeIdol(id)
+    } else {
+        await getUserProfile()
+    }
 }
 
-function scroll(e) {
-    nextTick(() => {
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-            oldScrollTop.value = e.detail.scrollTop
-            toTopBarIsShow.value = e.detail.scrollTop >= 300 ? true : false
-        }, 100);
-    })
-}
-function toIdol() {
-
+function linechange(e) {
+    const { lineCount } = e.detail
+    isChange.value = lineCount > 1
 }
 </script>
 

@@ -6,7 +6,8 @@
 </template>
 
 <script setup>
-import { reactive, inject } from 'vue'
+import { reactive, inject, provide } from 'vue'
+import { onShareAppMessage, onLoad } from '@dcloudio/uni-app'
 import TopLogo from '@/components/TopLogo/TopLogo'
 import GoodsCardList from '@/components/GoodsCardLIst/GoodsCardLIst'
 import { getCardList, isRefresh } from '@/network/home'
@@ -15,11 +16,44 @@ getCardList().then((res) => {
   state.cardList = res.data
 })
 
+onLoad(({ cardid }) => {
+  if (cardid) {
+    uni.navigateTo({
+      url: 'detailsPage?cardid=' + cardid
+    });
+  }
+})
+
 const statusBarHeight = inject('statusBarHeight')
+let cardid = null
+let title = null
+provide('clickUserId', changeUserId)
 const state = reactive({
   cardList: []
 })
 
+function changeUserId(id, text) {
+  cardid = id
+  title = text
+}
+onShareAppMessage(() => {
+  const promise = new Promise((resolve) => {
+    let timer = setInterval(() => {
+      if (cardid && title) {
+        clearInterval(timer)
+        resolve({
+          title: '分享给你：【' + title + '】，快来看看吧！',
+          path: '/pages/index/index?cardid=' + cardid,
+        })
+      }
+    }, 100);
+  })
+  return {
+    title: '自定义转发标题',
+    path: '/pages/index/index',
+    promise
+  }
+})
 
 function refresh(value, animationValue, translateY) {
   if (value) {

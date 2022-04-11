@@ -1,13 +1,25 @@
 <template>
-    <view class="search-bar" @click="goSearchPage">
-        <input class="input" type="text" placeholder="你在找什么?" />
-        <button class="button">搜索🔍</button>
+    <view class="search-bar">
+        <input class="input" type="text" placeholder="你在找什么?" @input="input" :value="defaultValue" />
+        <button class="button" @click="clickButton">搜索🔍</button>
     </view>
 </template>
 
 <script setup>
-function goSearchPage() {
-    console.log('跳转到goSearchPage');
+defineProps({
+    defaultValue: {
+        type: String,
+        default: ''
+    }
+})
+const emits = defineEmits(['clickButton'])
+let value = ''
+function input(e) {
+    value = e.detail.value
+}
+function clickButton() {
+    if (value.replace(/\s*/g, "") == '') return
+    emits('clickButton', value)
 }
 </script>
 

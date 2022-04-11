@@ -26,5 +26,25 @@ async function getUserProfile() {
         return
     }
 }
+function toPersonalSpace(id) {
+    if (store.userIsLogin && store.user.data._id === id)
+        uni.switchTab({
+            url: '/pages/four/index'
+        });
+    else
+        uni.navigateTo({
+            url: '../UserHome/UserHome?userid=' + id
+        });
+}
+function goDetails(cardId) {
+    uni.navigateTo({
+        url: '/pages/index/detailsPage?cardid=' + cardId
+    });
+}
+function goLabelsPage(label) {
+    uni.navigateTo({
+        url: '../LabelsPage/labelsPage?label=' + label
+    });
+}
 
-export { getUserProfile }
+export { getUserProfile, toPersonalSpace, goDetails, goLabelsPage }

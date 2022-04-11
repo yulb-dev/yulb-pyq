@@ -22,9 +22,10 @@ const store = useStore()
 uni.getStorage({
   key: 'user_token',
   success(res) {
-    Login({ url: '/init', data: { openid: res.data } }).then(({ data }) => {
-      store.InitUser(data)
-    })
+    if (res.data !== '')
+      Login({ url: '/init', data: { openid: res.data } }).then(({ data }) => {
+        store.InitUser(data)
+      })
   },
   fail() {
     return

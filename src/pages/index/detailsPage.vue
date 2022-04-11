@@ -17,13 +17,13 @@
                                 }}
                             </text>
                             <text class="h4">{{ state.title }}</text>
-                            <view class="useravatar" v-if="state.userid">
+                            <view class="useravatar" v-if="state.userid" @click="toPersonalSpace(state.userid._id)">
                                 <image :src="state.userid.avatar" class="avatar" />
                                 <text class="useravatar-text">{{ state.userid.name }}</text>
                                 <text class="span"></text>
                                 <text class="useravatar-text">{{ $formatTime(state.ctime) }}</text>
                                 <button :style="{ display: isMyself ? 'none' : 'flex' }" :class="{ isIdol }"
-                                    @click="toIdol">{{ isIdol ? '已关注' : '关注' }}</button>
+                                    @click.stop="toIdol">{{ isIdol ? '已关注' : '关注' }}</button>
                             </view>
                         </view>
                         <view class="text">
@@ -31,7 +31,7 @@
                         </view>
                     </view>
                     <view class='btnicon'>
-                        <image class="svg" :src="isFavorite ? collet : not_collet"></image>
+                        <image @click="addFavorite" class="svg" :src="isFavorite ? collet : not_collet"></image>
                         <text :class="{ noFavorite: !isFavorite }">{{ state.likesnum }}</text>
                         <image class="svg" src="@/static/images/icons/comment.png"></image>
                         <text>{{ state.comments?.length }}</text>
@@ -43,25 +43,16 @@
                     <view class='title'>
                         <text class="h5">{{ state.comments?.length }} 评论</text>
                     </view>
-                    <comment-item v-for="item in state.comments" :key="item._id" :message="item"></comment-item>
-                    <!-- 
-                    <view class='post-comment'>
-                        <h5>发表评论</h5>
-                        <p>在这里发表你的评论</p>
-                        <view>
-                            <textarea cols='30' row='5' name='message' value={value}
-                                onChange={this.valueChange.bind(this)} placeholder='说点什么...' maxLength='100'></textarea>
-                        </view>
-                        <button onClick={this.postAcomment.bind(this)}>发表评论</button>
-                    </view> -->
+                    <comment-item v-for="item in state.comments" :key="item._id" :message="item">
+                    </comment-item>
                 </view>
             </view>
         </scroll-view>
         <view :class="['post_comment', { post_comment_change: isChange }]">
             <textarea :class="['textarea', { textarea_change: isChange }]" placeholder-class="placeholder-class"
                 placeholder="发一条友善的评论" auto-height :show-confirm-bar="false" cursor-spacing="20" hold-keyboard
-                @linechange="linechange" />
-            <text class="release">发布</text>
+                @linechange="linechange" @input="changeComment" />
+            <text class="release" @click="addComment">发布</text>
         </view>
     </view>
 </template>
@@ -71,19 +62,20 @@ import { reactive, computed, ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { useStore } from '@/stores/counter'
 import { Details } from '@/network/index'
-import { getUserProfile } from "@/BusinessLogic/getUserProfile"
+import { getUserProfile, toPersonalSpace } from "@/BusinessLogic/getUserProfile"
 import { useScroll } from '@/BusinessLogic/Composable'
 import BackBar from '@/components/BackBar/BackBar'
 import ToTopBar from '@/components/ToTopBar/ToTopBar'
 import NewImg from '@/components/image/img'
 import CommentItem from '@/components/CommentItem/CommentItem'
 import not_collet from '@/static/images/icons/not_collet.png'
-import collet from '@/static/images/icons/not_collet.png'
+import collet from '@/static/images/icons/collet.png'
 
 const { toTopBarIsShow, scrollTop, toTop, scroll } = useScroll()
 
 const state = reactive({})
 const isChange = ref(false)
+let content = ''
 const store = useStore()
 const isMyself = computed(() => {
     return store.userIsLogin && store.user.data._id === state.userid?._id
@@ -124,10 +116,46 @@ async function toIdol() {
     }
 }
 
+async function addFavorite() {
+    const id = state._id
+    if (store.userIsLogin) {
+        let num = store.addFavorite(id)
+        state.likesnum += num
+    } else {
+        await getUserProfile()
+    }
+}
+
 function linechange(e) {
     const { lineCount } = e.detail
     isChange.value = lineCount > 1
 }
+
+function changeComment(e) {
+    const { value } = e.detail
+    content = value
+}
+
+function addComment() {
+    if (content.replace(/\s*/g, "") == '') {
+        return
+    }
+    const { name, avatar, _id } = store.user.data
+    let data = {
+        userid: _id,
+        content: content,
+        cardid: state._id
+    }
+    Details.post({ url: '/addcomment', data }).then(({ data }) => {
+        data.userid = {
+            name,
+            avatar,
+            _id
+        }
+        state.comments.unshift(data)
+    })
+}
+
 </script>
 
 <style lang="scss" scoped>

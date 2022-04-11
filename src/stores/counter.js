@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
-import { mySelf } from '@/network/index'
+import { mySelf, Details } from '@/network/index'
 
 const useStore = defineStore('main', () => {
     const userIsLogin = ref(false)
@@ -45,7 +45,30 @@ const useStore = defineStore('main', () => {
         }
     }
 
-    return { userIsLogin, user, InitUser, setUser, quit, becomeIdol }
+    function addFavorite(id) {
+        const { favorites } = user.data
+        const i = favorites.indexOf(id)
+        const data = { userid: user.data._id, cardid: id }
+        if (i > -1) {
+            favorites.splice(i, 1)
+            mySelf.post({ url: '/delFavorite', data }).then(({ data }) => {
+                if (data.keyValue) {
+                    throw (data)
+                }
+            })
+            return -1
+        } else {
+            favorites.push(id)
+            Details.post({ url: '/addfavorite', data }).then(({ data }) => {
+                if (data.keyValue) {
+                    throw (data)
+                }
+            })
+            return 1
+        }
+    }
+
+    return { userIsLogin, user, InitUser, setUser, quit, becomeIdol, addFavorite }
 })
 
 export { useStore }

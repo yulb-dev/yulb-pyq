@@ -109,16 +109,29 @@
     border-radius: 0 0 20px 20px;
     color: #506172;
     .left {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      font-size: 14px;
       width: 22%;
       border-radius: 0 3px 3px 0;
       border-right: 1px solid #d4d4d4;
+      .btn {
+        padding: 0;
+        font-size: 14px;
+        color: #515151;
+        letter-spacing: 1px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        outline: none;
+      }
+      .btn::after {
+        border: none;
+      }
       .icon {
         width: 22px;
         height: 22px;
+        margin-right: 3px;
       }
     }
     .right {

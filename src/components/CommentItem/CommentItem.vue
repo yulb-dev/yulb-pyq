@@ -1,5 +1,5 @@
 <template>
-    <view class="commentItem" @click="goPersonalSpace">
+    <view class="commentItem" @click="toPersonalSpace(message.userid._id)">
         <img :src="message.userid.avatar" class="avatar" />
         <text class="text">{{ message.userid.name }}</text>
         <text class="span"></text>
@@ -9,6 +9,7 @@
 </template>
 
 <script setup>
+import { toPersonalSpace } from "@/BusinessLogic/getUserProfile"
 defineProps({
     message: {
         type: Object,
@@ -16,9 +17,6 @@ defineProps({
     }
 })
 
-function goPersonalSpace() {
-
-}
 </script>
 
 <style lang="scss" scoped>

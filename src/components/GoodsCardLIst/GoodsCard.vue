@@ -1,5 +1,5 @@
 <template>
-    <view class="GoodsCard" @click="goDetails">
+    <view class="GoodsCard" @click="goDetails(message._id)">
         <view class="box">
             <view class="imgBox">
                 <view class="imBox-div">
@@ -9,7 +9,9 @@
             <view class="cardLabels">
                 <text v-for="(item, index) in message.labels" :style="{ backgroundColor: color[index] }"
                     @click.stop="goLabelsPage(item)" :key="index" class="cardLabels-text">{{ item }}</text>
-                <text style="color:rgb(83, 83, 83);" class="cardLabels-text">{{ date }}</text>
+                <text style="color:rgb(83, 83, 83);" class="cardLabels-text">{{
+                    $formatTime(props.message.ctime)
+                }}</text>
             </view>
             <text class="cardTitle">{{ message.title }}</text>
             <text class="cardContent">{{ message.content }}</text>
@@ -21,8 +23,10 @@
             </view>
             <view class='cardBto' @click="stop">
                 <view class="left">
-                    <image src="@/static/images/icons/share.png" class="icon"></image>
-                    <text>分享</text>
+                    <button class="btn" open-type="share" @click.stop="stop">
+                        <image src="@/static/images/icons/share.png" class="icon"></image>
+                        <text> 分享</text>
+                    </button>
                 </view>
                 <view class="right" v-if="state.message.useravatar" @click.stop="toPersonalSpace(message.userid)">
                     <text> 来自于</text>
@@ -36,12 +40,14 @@
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { reactive, inject } from 'vue'
 import { getUserMessage } from '@/network/home'
+import { toPersonalSpace, goDetails, goLabelsPage } from "@/BusinessLogic/getUserProfile"
 import { useStore } from '@/stores/counter'
 import NewImg from '@/components/image/img'
 
 const store = useStore()
+const clickUserId = inject('clickUserId')
 
 const props = defineProps({
     message: {
@@ -59,42 +65,12 @@ const state = reactive({
 
 const color = ['#36a08a', '#5db4c7', '#e52e2e', "#506172"]
 
-const date = computed(() => {
-    const date = new Date(props.message.ctime)
-    return `${date.getFullYear()}-${date.getMonth()
-        + 1}-${date.getDate()}`
-})
-
 getUserMessage(props.message.userid).then(({ data }) => {
     state.message = data
 })
 
-function goDetails() {
-    uni.navigateTo({
-        url: 'detailsPage?cardid=' + props.message._id
-    });
-}
-
-function goLabelsPage(label) {
-    uni.navigateTo({
-        url: '../LabelsPage/labelsPage?label=' + label
-    });
-}
-
-function toPersonalSpace(userid) {
-    if (store.userIsLogin && store.user.data._id === userid)
-        uni.switchTab({
-            url: '/pages/four/index'
-        });
-    else
-        uni.navigateTo({
-            url: '../UserHome/UserHome?userid=' + userid
-        });
-
-}
-
 function stop() {
-
+    clickUserId(props.message._id, props.message.title)
 }
 </script>
 <style lang="scss">

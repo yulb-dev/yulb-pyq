@@ -1,12 +1,20 @@
 <template>
   <view class="discover-page">
     <top-logo></top-logo>
-    <scroll-view scroll-y="true" class="scroll-Y">
+    <to-top-bar v-show="toTopBarIsShow" @toTop="toTop"></to-top-bar>
+    <scroll-view
+      scroll-y="true"
+      class="scroll-Y"
+      @scrolltolower="scrolltolower"
+      :scroll-top="scrollTop"
+      scroll-with-animation
+      @scroll="scroll"
+    >
       <view class="top" :style="{ paddingTop: $statusBarHeight + 80 + 'px' }">
-        <search-bar></search-bar>
+        <search-bar @clickButton="goSearchPage"></search-bar>
         <label-box :labelsList="state.labelsList" @LabelsRefresh="LabelsRefresh"></label-box>
       </view>
-      <dynamic-box :cardList="state.cardList" @DynamicRefresh="DynamicRefresh"></dynamic-box>
+      <dynamic-box :cardList="state.cardList"></dynamic-box>
     </scroll-view>
     <view class="bottom_shadow"></view>
   </view>
@@ -14,11 +22,15 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { discoverPage } from '@/network/index'
+import { useScroll } from '@/BusinessLogic/Composable'
 import TopLogo from '@/components/TopLogo/TopLogo'
+import ToTopBar from '@/components/ToTopBar/ToTopBar'
 import SearchBar from '@/components/SearchBar/SearchBar'
 import LabelBox from '@/components/LabelBox/LabelBox'
 import DynamicBox from '@/components/DynamicBox/DynamicBox'
-import { discoverPage } from '@/network/index'
+
+const { toTopBarIsShow, scrollTop, toTop, scroll } = useScroll()
 
 discoverPage().then(({ data }) => {
   state.cardList = data.cardList
@@ -31,6 +43,11 @@ const state = reactive({
   labelsList: []
 })
 
+function goSearchPage(value) {
+  uni.navigateTo({
+    url: 'SearchPage?value=' + value
+  });
+}
 
 function LabelsRefresh() {
   discoverPage().then(({ data }) => {
@@ -38,8 +55,10 @@ function LabelsRefresh() {
   }, console.error)
 }
 
-function DynamicRefresh() {
-
+function scrolltolower() {
+  discoverPage().then(({ data }) => {
+    Array.prototype.push.apply(state.cardList, data.cardList)
+  }, console.error)
 }
 </script>
 
@@ -56,5 +75,4 @@ function DynamicRefresh() {
 .scroll-Y {
   height: 100%;
 }
-
 </style>

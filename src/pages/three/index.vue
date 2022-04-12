@@ -1,5 +1,5 @@
 <template>
-  <view class="content" :style="{ paddingTop: $statusBarHeight + 56 + 'px' }">
+  <view class="content">
     <top-logo></top-logo>
     <release v-if="store.userIsLogin"></release>
     <not-login v-else></not-login>

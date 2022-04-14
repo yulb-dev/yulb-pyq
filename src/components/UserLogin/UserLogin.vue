@@ -53,15 +53,21 @@ function goSetting() {
 }
 
 function goDynamic() {
-
+    uni.navigateTo({
+        url: '../Dynamic/Dynamic'
+    });
 }
 
 function goIdol() {
-
+    uni.navigateTo({
+        url: '/pages/UserList/UserList?query=idol'
+    });
 }
 
 function goFans() {
-
+    uni.navigateTo({
+        url: '/pages/UserList/UserList?query=fans'
+    });
 }
 
 </script>

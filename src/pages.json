@@ -32,6 +32,21 @@
     },
     {
       "path": "pages/UserHome/UserHome"
+    },
+    {
+      "path": "pages/Dynamic/Dynamic"
+    },
+    {
+      "path":"pages/four/Release",
+      "style": {
+        "navigationBarBackgroundColor": "#f9f9ff",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "编辑",
+        "navigationStyle": "default"
+      }
+    },
+    {
+      "path": "pages/UserList/UserList"
     }
   ],
   "globalStyle": {

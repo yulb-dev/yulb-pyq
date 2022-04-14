@@ -32,7 +32,7 @@
                     <text> 来自于</text>
                     <text class="separate"></text>
                     <p>{{ state.message.username }}</p>
-                    <new-img :src="state.message.useravatar" class="right-img"></new-img>
+                    <image :src="state.message.useravatar" class="right-img" />
                 </view>
             </view>
         </view>

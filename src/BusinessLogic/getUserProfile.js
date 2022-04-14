@@ -47,4 +47,28 @@ function goLabelsPage(label) {
     });
 }
 
-export { getUserProfile, toPersonalSpace, goDetails, goLabelsPage }
+function formValidation(imgChange, labels, title, textareaValue) {
+    if (!imgChange.value) {
+        console.log('请上传图片');
+        return false
+    }
+    if (labels == 0) {
+        console.log('添加标签');
+        return false
+    }
+    if (labels > 5) {
+        console.log('标签过多');
+        return false
+    }
+    if (!title.replace(/\s/g, "")) {
+        console.log('请规范标题');
+        return false
+    }
+    if (!textareaValue.replace(/\s/g, "")) {
+        console.log('请规范内容');
+        return false
+    }
+    return true
+}
+
+export { getUserProfile, toPersonalSpace, goDetails, goLabelsPage, formValidation }

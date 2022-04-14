@@ -8,10 +8,10 @@
 </template>
 
 <script setup>
+import { useStore } from '@/stores/counter'
 import TopLogo from '@/components/TopLogo/TopLogo'
 import UserLogin from '@/components/UserLogin/UserLogin'
 import NotLogin from '@/components/NotLogin/NotLogin'
-import { useStore } from '@/stores/counter'
 
 const store = useStore()
 

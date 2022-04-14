@@ -68,7 +68,11 @@ const useStore = defineStore('main', () => {
         }
     }
 
-    return { userIsLogin, user, InitUser, setUser, quit, becomeIdol, addFavorite }
+    function addDynamic(carid) {
+        user.data.dynamic.push(carid)
+    }
+
+    return { userIsLogin, user, InitUser, setUser, quit, becomeIdol, addFavorite, addDynamic }
 })
 
 export { useStore }

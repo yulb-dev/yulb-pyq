@@ -93,9 +93,7 @@ onLoad(async (option) => {
     const { card, comments } = res.data
     if (!card.notdel) {
         //提示文章已删除
-        uni.switchTab({
-            url: '/pages/four/index'
-        })
+        uni.navigateBack()
         return
     }
     Reflect.ownKeys(card).forEach((key) => state[key] = card[key])

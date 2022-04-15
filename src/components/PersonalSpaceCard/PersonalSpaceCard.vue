@@ -12,7 +12,7 @@
         <text class="h5">{{ message.title }}</text>
         <text class="content">{{ message.content }}</text>
         <view class="userMessage" @click.stop="toPersonalSpace(_id)">
-            <new-img :src="avatar" class="img"></new-img>
+            <image :src="avatar" class="img" />
             <text class="text">{{ name }}</text>
             <text class="span"></text>
             <text class="text">{{ $formatTime(message.ctime) }}</text>

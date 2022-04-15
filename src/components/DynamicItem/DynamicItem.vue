@@ -16,7 +16,7 @@
             </view>
             <view class='dynamicItem-bottom'>
                 <text class="btn" @click="goEditPage">编辑</text>
-                <text class="btn" @click="delDynamic">删除</text>
+                <text class="btn" @click="store.delDynamic(state._id)">删除</text>
             </view>
         </view>
     </view>
@@ -26,6 +26,9 @@
 import { reactive, inject, watch } from 'vue'
 import { mySelf } from '@/network/index';
 import { goDetails } from '@/BusinessLogic/getUserProfile'
+import { useStore } from '@/stores/counter'
+
+const store = useStore()
 
 const data = inject('Release')
 const ModifiedarticleId = inject('ModifiedarticleId')
@@ -65,10 +68,6 @@ function goEditPage() {
     uni.navigateTo({
         url: '/pages/four/Release?oldImgsrc=' + imgsrc,
     });
-}
-
-function delDynamic() {
-
 }
 </script>
 

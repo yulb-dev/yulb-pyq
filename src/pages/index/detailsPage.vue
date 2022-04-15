@@ -22,7 +22,7 @@
                                 <text class="useravatar-text">{{ state.userid.name }}</text>
                                 <text class="span"></text>
                                 <text class="useravatar-text">{{ $formatTime(state.ctime) }}</text>
-                                <button :style="{ display: isMyself ? 'none' : 'flex' }" :class="{ isIdol }"
+                                <button :style="{ display: isMyself ? 'none' : 'flex' }" :class="[{ isIdol }, 'btn']"
                                     @click.stop="toIdol">{{ isIdol ? '已关注' : '关注' }}</button>
                             </view>
                         </view>
@@ -87,12 +87,18 @@ const isFavorite = computed(() => {
     return store.userIsLogin && store.user.data.favorites.indexOf(state._id) > -1
 })
 
-
+uni.showLoading({ title: '' });
 onLoad(async (option) => {
     const res = await Details({ url: '/getMessage', data: { id: option.cardid } })
     const { card, comments } = res.data
+    uni.hideLoading();
     if (!card.notdel) {
         //提示文章已删除
+        uni.showToast({
+            title: '文章已删除',
+            icon: 'error',
+            duration: 1500
+        });
         uni.navigateBack()
         return
     }

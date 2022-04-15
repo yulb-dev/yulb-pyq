@@ -4,16 +4,12 @@
   background-color: #f9f9ff;
   position: relative;
   overflow: hidden;
-  ::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-    color: transparent;
-  }
+
   .box {
     width: 100%;
     height: 100vh;
     overflow: hidden;
+
     .content {
       margin-top: 150px;
       position: relative;
@@ -23,12 +19,15 @@
       border-radius: 20px !important;
       box-shadow: 0 5px 20px 0 rgba(69, 67, 96, 0.1);
       -webkit-box-shadow: 0 5px 20px 0 rgba(69, 67, 96, 0.1);
+
       .box2 {
         width: 100%;
         transform: translateY(-61px);
+
         .img {
           width: 100%;
           margin-bottom: 40px;
+
           .img {
             display: block;
             width: 100%;
@@ -36,8 +35,10 @@
             box-shadow: 0 5px 20px 0 rgba(69, 67, 96, 0.1);
           }
         }
+
         .title {
           width: 100%;
+
           .labels {
             background-color: #f67280;
             color: #fff;
@@ -53,6 +54,7 @@
             margin-right: 15px;
             margin-bottom: 20px;
           }
+
           .h4 {
             display: block;
             font-size: 24px;
@@ -63,12 +65,14 @@
             color: #152035;
             margin-bottom: 20px;
           }
+
           .useravatar {
             display: flex;
             width: 100%;
             align-items: center;
             overflow-x: hidden;
             letter-spacing: 1px;
+
             .avatar {
               display: block;
               width: 40px;
@@ -76,11 +80,13 @@
               border-radius: 50%;
               margin-right: 10px;
             }
+
             .useravatar-text {
               font-size: 15px;
               color: #506172;
               font-weight: 400;
             }
+
             .span {
               width: 4px;
               height: 4px;
@@ -89,11 +95,8 @@
               display: block;
               margin: 0 10px;
             }
-            .isIdol {
-              color: rgb(126, 126, 126);
-              border: 1px solid rgb(126, 126, 126);
-            }
-            button {
+
+            .btn {
               display: block;
               line-height: 25px;
               font-size: 15px;
@@ -109,11 +112,18 @@
               position: absolute;
               right: 0;
             }
+
+            .isIdol {
+              color: rgb(126, 126, 126);
+              border: 1px solid rgb(126, 126, 126);
+            }
           }
         }
+
         .text {
           width: 100%;
           margin-top: 30px;
+
           .text-content {
             display: block;
             width: 100%;
@@ -127,6 +137,7 @@
           }
         }
       }
+
       .btnicon {
         letter-spacing: 0.9rem;
         display: flex;
@@ -137,30 +148,36 @@
         position: absolute;
         bottom: 20px;
         font-weight: bold;
+
         .svg {
           fill: #f67280;
           margin-right: 7px;
           width: 22px;
           height: 22px;
         }
+
         .noFavorite {
           color: #506172;
         }
       }
     }
   }
+
   .comments {
     width: 100%;
     padding: 0 15px;
     margin: 30px 0 80px 0;
+
     .comments-box {
       background-color: #fff;
       padding: 30px;
       border-radius: 20px;
       -webkit-box-shadow: 0 5px 20px 0 rgba(69, 67, 96, 0.1);
       box-shadow: 0 5px 20px 0 rgba(69, 67, 96, 0.1);
+
       .title {
         margin-bottom: 20px;
+
         .h5 {
           font-family: 'Muli', sans-serif;
           font-weight: 900;
@@ -172,6 +189,7 @@
       }
     }
   }
+
   .post_comment {
     width: 100%;
     position: fixed;
@@ -183,6 +201,7 @@
     padding: 6px 9px 7px 10px;
     background-color: white;
     border-top: 1px solid rgba(214, 214, 214, 0.521);
+
     .textarea {
       display: block;
       box-sizing: content-box;
@@ -195,10 +214,12 @@
       line-height: 21px;
       padding-left: 10px;
     }
+
     .placeholder-class {
       font-size: 14px;
       color: rgb(240, 240, 240);
     }
+
     .release {
       color: #f67280;
       font-size: 14px;
@@ -206,10 +227,12 @@
       flex-grow: 1;
       padding-left: 10px;
     }
+
     .textarea_change {
       border-radius: 6px;
     }
   }
+
   .post_comment_change {
     align-items: flex-end;
   }

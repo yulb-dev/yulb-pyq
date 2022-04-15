@@ -35,6 +35,7 @@ const state = reactive({
     cardList: []
 })
 
+uni.showLoading({title: ''});
 onLoad(({ label }) => {
     state.label = label
     const data = {
@@ -45,6 +46,7 @@ onLoad(({ label }) => {
             throw data
         }
         state.cardList = data
+        uni.hideLoading();
     })
 })
 

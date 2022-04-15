@@ -80,6 +80,7 @@ function introductionChange(e) {
 
 async function submit() {
     if (isOk.value) {
+        uni.showLoading({ title: '' });
         const data = { ...state }
         const avatar = data.avatar
         if (avatarUrl !== avatar) {
@@ -101,6 +102,7 @@ async function submit() {
         data.id = user._id
 
         Registered.post({ url: '/setUp', data }).then((res) => {
+            uni.hideLoading();
             uni.switchTab({
                 url: '/pages/four/index'
             })
@@ -111,13 +113,22 @@ async function submit() {
 }
 
 async function quit() {
-    await uni.removeStorage({
-        key: 'user_token',
-    });
-    store.quit()
-    uni.switchTab({
-        url: '/pages/four/index'
+    const res = await uni.showModal({
+        title: '提示',
+        content: '确定退出？',
     })
+    if (res.confirm) {
+        await uni.removeStorage({
+            key: 'user_token',
+        });
+        store.quit()
+        uni.switchTab({
+            url: '/pages/four/index'
+        })
+    } else if (res.cancel) {
+        return
+    }
+
 }
 
 </script>

@@ -30,12 +30,20 @@ const useStore = defineStore('main', () => {
         const data = { userid: user.data._id, idolid: id }
         if (i > -1) {
             idol.splice(i, 1)
+            uni.showToast({
+                title: '取消关注',
+                duration: 1000
+            });
             mySelf({ url: '/delIdol', data }).then(({ data }) => {
                 if (data.keyValue) {
                     throw (data)
                 }
             })
         } else {
+            uni.showToast({
+                title: '已关注',
+                duration: 1000
+            });
             idol.push(id)
             mySelf({ url: '/pushIdol', data }).then(({ data }) => {
                 if (data.keyValue) {
@@ -50,6 +58,10 @@ const useStore = defineStore('main', () => {
         const i = favorites.indexOf(id)
         const data = { userid: user.data._id, cardid: id }
         if (i > -1) {
+            uni.showToast({
+                title: '取消收藏',
+                duration: 1000
+            });
             favorites.splice(i, 1)
             mySelf.post({ url: '/delFavorite', data }).then(({ data }) => {
                 if (data.keyValue) {
@@ -58,6 +70,10 @@ const useStore = defineStore('main', () => {
             })
             return -1
         } else {
+            uni.showToast({
+                title: '添加收藏',
+                duration: 1000
+            });
             favorites.push(id)
             Details.post({ url: '/addfavorite', data }).then(({ data }) => {
                 if (data.keyValue) {
@@ -72,7 +88,28 @@ const useStore = defineStore('main', () => {
         user.data.dynamic.push(carid)
     }
 
-    return { userIsLogin, user, InitUser, setUser, quit, becomeIdol, addFavorite, addDynamic }
+    async function delDynamic(cardId) {
+        const res = await uni.showModal({
+            title: '提示',
+            content: '确定删除？',
+        })
+        if (res.confirm) {
+            const { data } = await mySelf({ url: '/pullDynamic', data: { id: cardId } })
+            if (data.keyValue) {
+                throw (data)
+            }
+            uni.showToast({
+                title: '删除成功',
+                duration: 1000
+            });
+            const i = user.data.dynamic.indexOf(cardId)
+            user.data.dynamic.splice(i, 1)
+        } else if (res.cancel) {
+            return
+        }
+    }
+
+    return { userIsLogin, user, InitUser, setUser, quit, becomeIdol, addFavorite, addDynamic, delDynamic }
 })
 
 export { useStore }

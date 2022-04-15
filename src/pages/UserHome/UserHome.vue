@@ -2,22 +2,13 @@
     <view class="PersonalSpace">
         <back-bar></back-bar>
         <to-top-bar v-show="toTopBarIsShow" @toTop="toTop"></to-top-bar>
-        <scroll-view
-            class="scroll"
-            scroll-y="true"
-            :show-scrollbar="false"
-            :scroll-top="scrollTop"
-            scroll-with-animation
-            @scroll="scroll"
-        >
+        <scroll-view class="scroll" scroll-y="true" :show-scrollbar="false" :scroll-top="scrollTop"
+            scroll-with-animation @scroll="scroll">
             <view class="Personal-information">
                 <image class="img" :src="state.avatar" />
                 <view class="name">
                     <text class="h6">{{ state.name }}</text>
-                    <image
-                        class="name-img"
-                        :src="'../../static/images/icons/gender_' + state.gender + '.png'"
-                    />
+                    <image class="name-img" :src="'../../static/images/icons/gender_' + state.gender + '.png'" />
                 </view>
                 <view class="personlabels">
                     <span class="labelsList_item">{{ state.dynamic?.length }}动态</span>
@@ -49,6 +40,7 @@ const state = reactive({
     dynamicList: []
 })
 
+uni.showLoading({ title: '' });
 onLoad(async ({ userid }) => {
     const data = {
         id: userid
@@ -60,6 +52,7 @@ onLoad(async ({ userid }) => {
     const { user, dynamicList } = res.data
     Reflect.ownKeys(user).forEach((key) => state[key] = user[key])
     state.dynamicList = dynamicList
+    uni.hideLoading();
 })
 
 const dynamicList = computed(() => state.dynamicList.map((item) => {

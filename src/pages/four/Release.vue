@@ -23,12 +23,14 @@ async function editArticle(data) {
     if (data.imgsrc !== oldImgsrc) {
         wx.cloud.deleteFile({
             fileList: [oldImgsrc],
-            success: console.log,
-            fail: console.error
+            config: {
+                env: 'prod-6gjaadkm5f538e2a' // 微信云托管环境ID
+            },
         })
     }
     const res = await Registered.post({ url: '/editCard', data })
     ModifiedarticleId.value = res.data._id
+    uni.hideLoading();
     uni.redirectTo({
         url: '/pages/index/detailsPage?cardid=' + res.data._id
     });

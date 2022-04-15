@@ -2,14 +2,8 @@
   <view class="discover-page">
     <top-logo></top-logo>
     <to-top-bar v-show="toTopBarIsShow" @toTop="toTop"></to-top-bar>
-    <scroll-view
-      scroll-y="true"
-      class="scroll-Y"
-      @scrolltolower="scrolltolower"
-      :scroll-top="scrollTop"
-      scroll-with-animation
-      @scroll="scroll"
-    >
+    <scroll-view scroll-y="true" class="scroll-Y" @scrolltolower="scrolltolower" :scroll-top="scrollTop"
+      scroll-with-animation @scroll="scroll">
       <view class="top" :style="{ paddingTop: $statusBarHeight + 80 + 'px' }">
         <search-bar @clickButton="goSearchPage"></search-bar>
         <label-box :labelsList="state.labelsList" @LabelsRefresh="LabelsRefresh"></label-box>
@@ -32,9 +26,11 @@ import DynamicBox from '@/components/DynamicBox/DynamicBox'
 
 const { toTopBarIsShow, scrollTop, toTop, scroll } = useScroll()
 
+uni.showLoading({ title: '' });
 discoverPage().then(({ data }) => {
   state.cardList = data.cardList
   state.labelsList = data.labelsList
+  uni.hideLoading();
 }, console.error)
 
 
@@ -67,11 +63,13 @@ function scrolltolower() {
   width: 100%;
   height: 100%;
   background-color: rgb(249, 249, 255);
+
   .top {
     width: 100%;
     padding: 0 30px;
   }
 }
+
 .scroll-Y {
   height: 100%;
 }

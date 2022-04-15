@@ -32,21 +32,6 @@ uni.getStorage({
     return
   },
 })
-
-//应用生命周期
-// onLaunch(() => {
-//   //路由拦截
-
-// })
-// export default {
-//   onLaunch: function () {
-
-//   },
-//   onShow: function () {
-//   },
-//   onHide: function () {
-//   },
-// }
 </script>
 
 <style lang="scss">

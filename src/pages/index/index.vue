@@ -12,8 +12,13 @@ import TopLogo from '@/components/TopLogo/TopLogo'
 import GoodsCardList from '@/components/GoodsCardLIst/GoodsCardLIst'
 import { getCardList, isRefresh } from '@/network/home'
 
+uni.showLoading({
+  title: '',
+})
+
 getCardList().then((res) => {
   state.cardList = res.data
+  uni.hideLoading();
 })
 
 onLoad(({ cardid }) => {

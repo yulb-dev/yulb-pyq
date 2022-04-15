@@ -119,6 +119,7 @@ function textareaChange(e) {
 }
 
 async function publishAnArticle() {
+  uni.showLoading({ title: '发布中' });
   const isOk = formValidation(
     imgChange,
     state.labels.length,
@@ -154,6 +155,7 @@ async function publishAnArticle() {
     return
   }
   Registered.post({ url: '/pushCard', data }).then(({ data }) => {
+    uni.hideLoading();
     if (data.keyValue) {
       throw data
     } else {
